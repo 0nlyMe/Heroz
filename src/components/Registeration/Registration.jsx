@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./styles.css";
-import removed from "./removed.png";
+import "./style.css";
+import removed from "../removed.png";
 
 const RegistrationForm = () => {
   const [name, setName] = useState("");
@@ -51,7 +51,13 @@ const RegistrationForm = () => {
                 <tbody>
                   <tr>
                     <td>
-                      <input type="text" placeholder="Username" />
+                      <input
+                        type="text"
+                        placeholder="Username"
+                        required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
                     </td>
                   </tr>
                   <tr>

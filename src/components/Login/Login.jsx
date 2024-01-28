@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./styles.css";
-import removed from "./removed.png";
+import "./style.css";
+import removed from "../removed.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -51,6 +51,11 @@ const Login = () => {
                   <tbody>
                     <tr>
                       <td>
+                        <input required type="text" placeholder="Username" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
                         <input
                           required
                           placeholder="Email"
@@ -58,11 +63,6 @@ const Login = () => {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                         />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input required type="text" placeholder="Username" />
                       </td>
                     </tr>
                     <tr>

@@ -1,0 +1,7 @@
+:root {
+  --bg: linear-gradient(to bottom, grey, rgb(33, 29, 29) );
+}
+body {
+  font-family: "Montserrat", sans-serif;
+}
+

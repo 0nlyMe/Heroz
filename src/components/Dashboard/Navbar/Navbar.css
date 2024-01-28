@@ -1,0 +1,63 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+  padding: 0.2rem;
+  position: relative;
+  max-height: 1rem;
+  z-index: 999;
+}
+nav li {
+  list-style: none;
+}
+.company-logo {
+  color: rgb(155, 64, 240);
+  font-size: 1.5rem;
+}
+.menu-bar {
+  width: 45%;
+  display: flex;
+  justify-content: center;
+}
+
+.menu-bar .a {
+  margin: 0 3rem 0 3rem;
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: rgb(250, 246, 246);
+  border-radius: 5px;
+}
+.menu-bar .a:hover {
+  font-weight: 550;
+}
+
+.nav-conatainer {
+  inset: 0;
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(169, 169, 169, 0.192);
+  position: fixed;
+  padding: 0rem 1rem;
+}
+.login-btn {
+  color: rgb(250, 246, 246);
+  background-color: rgba(0, 0, 0, 0);
+  border-width: 0;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.signup-btn {
+  color: rgb(250, 246, 246);
+  background-color: rgba(0, 0, 0, 0);
+  border-width: 0;
+  padding: 1rem;
+  margin-right: 1.5rem;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.signup-btn:hover {
+  box-shadow: 1px 1px 2px orange;
+}

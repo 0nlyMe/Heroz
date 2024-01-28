@@ -1,0 +1,13 @@
+.main-container {
+  display: flex;
+  height: 100%;
+  width: 100vw;
+}
+.main-nav-right,
+.main-nav-mid,
+.main-nav-left {
+  display: grid;
+  place-content: center;
+  place-items: center;
+}
+

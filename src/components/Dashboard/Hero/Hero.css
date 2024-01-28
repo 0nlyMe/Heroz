@@ -1,0 +1,8 @@
+.corousel {
+  padding-top: 80px;
+  height: 100vh;
+}
+.corousel img {
+  height: 100%;
+  width: 100%;
+}

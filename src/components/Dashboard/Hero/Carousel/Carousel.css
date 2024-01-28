@@ -1,0 +1,14 @@
+.arrows {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+.arrow-left,
+.arrow-right {
+  margin: 1rem;
+  font-size: 2rem;
+  cursor: pointer;
+}
