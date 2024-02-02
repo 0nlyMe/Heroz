@@ -16,28 +16,64 @@ li {
 }
 .card-layout {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
+  margin-right: 2rem;
+}
+.card-container {
+  max-width: 27rem;
+  min-width: 17rem;
+  max-height: 100%;
+  margin-left: 1.2rem;
 }
 .card {
-  width: 30%;
-  margin: 10px;
+  width: 100%;
+  border-radius: 3px;
+  /* margin: 0.8rem; */
+  margin-top: 0rem;
   text-align: center;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  overflow: hidden;
+}
+.card h4 {
+  margin: 0.3rem;
 }
 .card img {
-  max-width: 100%;
+  max-width: 19rem;
+  max-height: 15rem;
+  min-height: 15rem;
+  min-width: 19rem;
+  object-fit: cover;
 }
 .search-btn {
   display: flex;
-  background-color: rgba(0, 0, 0, 0.161);
-  border-radius: 10px;
-  justify-content: center;
-  align-items: center;
+  /* background-color: black; */
+  max-width: 10rem;
+  /* overflow: hidden; */
+  margin-left: -6.4rem;
+}
+
+.search-btn input {
   padding-left: 1.2rem;
   padding-right: 1.5rem;
-  gap: 1.3rem;
-  color: rgba(44, 43, 43, 0.837);
+  margin-right: 1.3rem; /* Adjust as needed for spacing between input and button */
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.161);
+  color: white;
 }
-.search-btn a {
-  color: rgba(155, 152, 152, 0.966);
+.search-btn input::placeholder {
+  color: rgba(255, 255, 255, 0.568);
+}
+
+.search-btn button {
+  background-color: rgba(0, 0, 0, 0.161);
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: rgba(44, 43, 43, 0.837);
 }

@@ -16,7 +16,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/login",
+        "http://localhost:5000/api/user/login",
         {
           email,
           password,
@@ -26,7 +26,7 @@ const Login = () => {
       console.log("Response:", response);
 
       if (response.status === 200) {
-        navigate(`/dashboard`);
+        navigate(`/home`);
       } else {
         console.log("error");
       }

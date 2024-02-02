@@ -1,19 +1,21 @@
 import React from "react";
+import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Registration from "./components/Registeration/Registration";
-import Dashboard from "./components/Dashboard/Dashboard";
-import "./App.css";
+import Home from "./components/Dashboard/Dashboard";
 import Newpost from "./components/Newpost/Newpost";
+import PostDetail from "./components/PostDetail/PostDetail.jsx";
 
-const App  = () => {
+const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/post" element={<Newpost />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/post/add" element={<Newpost />} />
+        <Route path="/post/:postId" element={<PostDetail />} />
         <Route path="/" element={<Login />} />
       </Routes>
     </Router>

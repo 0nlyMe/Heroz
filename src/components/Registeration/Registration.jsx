@@ -22,7 +22,7 @@ const RegistrationForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/register",
+        "http://localhost:5000/api/user/register",
         {
           name,
           email,
@@ -30,7 +30,7 @@ const RegistrationForm = () => {
         }
       );
       console.log("Registration successful:", response);
-      navigate(`/dashboard`);
+      navigate(`/home`);
     } catch (error) {
       console.error("Error registering user:", error.response.data);
     }

@@ -1,6 +1,11 @@
 :root {
   --main-bg: linear-gradient(to bottom, #4b006e, #1a1a1ab8);
 }
+.input-image {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+}
 * {
   margin: 0;
   padding: 0;
@@ -18,20 +23,17 @@ body {
 .login-container {
   background: var(--main-bg);
   display: flex;
-  width: 100vw;
+  width: 100%;
   max-width: 50vw;
-  /* height: 65vh; */
   border-radius: 50px;
-  /* margin-left: 10px; */
 }
 
 .box-container {
   display: flex;
-  /* min-width: 100vw; */
-  /* padding: 1rem; */
   justify-content: center;
   align-items: center;
-  /* overflow: hidden; */
+  width: 100%;
+  border-radius: 500px;
 }
 
 .box {

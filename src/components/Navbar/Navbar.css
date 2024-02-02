@@ -10,27 +10,23 @@ nav {
 nav li {
   list-style: none;
 }
-.company-logo {
-  color: rgb(155, 64, 240);
+.company-logo h4 {
+  color: rgb(229, 213, 244);
   font-size: 1.5rem;
 }
 .menu-bar {
   width: 45%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 }
-
-.menu-bar .a {
-  margin: 0 3rem 0 3rem;
-  text-decoration: none;
-  font-size: 1.2rem;
-  color: rgb(250, 246, 246);
-  border-radius: 5px;
+.menu-bar h4 {
+  font-size: 1rem;
+  display: flex;
 }
-.menu-bar .a:hover {
-  font-weight: 550;
+.menu-bar h4:hover {
+  scale: 1.2;
+  transition: 0.1s ease;
 }
-
 .nav-conatainer {
   inset: 0;
   height: 80px;

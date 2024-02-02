@@ -1,9 +1,40 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import stars from "../../Assests/stars.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import "./Post.css";
+import { Link } from "react-router-dom";
 
 const Post = () => {
+  const [posts, setPosts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/post/posts"
+        );
+        setPosts(response.data.data.posts);
+      } catch (error) {
+        console.error("Error fetching the posts", error);
+      }
+    };
+    fetchPosts();
+  }, []);
+
+  const handleSearch = () => {
+    const filterdPost = posts.filter((post) =>
+      post.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setPosts(filterdPost);
+  };
+
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   return (
     <>
       <div className="main-mid">
@@ -31,10 +62,16 @@ const Post = () => {
               <div className="search-btn">
                 <ul>
                   <li>
-                    <a href="#">Search</a>
+                    <input
+                      type="text"
+                      placeholder="Search"
+                      value={searchTerm}
+                      onChange={handleInputChange}
+                      onInput={handleSearch}
+                    />
+                    <FontAwesomeIcon icon={faMagnifyingGlass} />
                   </li>
                 </ul>
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
               </div>
             </div>
           </div>
@@ -42,30 +79,16 @@ const Post = () => {
         <div>
           <div className="list-display">
             <div className="card-layout">
-              <div className="card">
-                <img src={stars} alt="" />
-                <h4>Post 1</h4>
-              </div>
-              <div className="card">
-                <img src={stars} alt="" />
-                <h4>Post 1</h4>
-              </div>
-              <div className="card">
-                <img src={stars} alt="" />
-                <h4>Post 1</h4>
-              </div>
-              <div className="card">
-                <img src={stars} alt="" />
-                <h4>Post 1</h4>
-              </div>
-              <div className="card">
-                <img src={stars} alt="" />
-                <h4>Post 1</h4>
-              </div>
-              <div className="card">
-                <img src={stars} alt="" />
-                <h4>Post 1</h4>
-              </div>
+              {posts.map((post) => (
+                <div className="card-container" key={post._id}>
+                  <Link key={post._id} to={`/post/${post._id}`}>
+                    <div className="card">
+                      <img src={post.image} alt={post.title} />
+                      <h4>{post.title}</h4>
+                    </div>
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
         </div>
