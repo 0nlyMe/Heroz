@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./style.css";
+import "../Styles/Form.css";
 import removed from "../removed.png";
 
 const Login = () => {

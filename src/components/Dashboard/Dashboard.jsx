@@ -5,11 +5,11 @@ import Container from "./Container/Container";
 
 const Dashboard = () => {
   return (
-    <>
+    <div className="container">
       <NavBar />
-      <Hero />
+      <Hero className="hero" />
       <Container />
-    </>
+    </div>
   );
 };
 

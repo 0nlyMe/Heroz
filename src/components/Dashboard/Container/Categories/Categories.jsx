@@ -1,14 +1,21 @@
-import React from "react";
 import "./Categories.css";
+import { useCategory } from "../../../../Contexts/CategoryContext";
+import { Link } from "react-router-dom";
 
 const Categories = () => {
+  const { setSelectedCategory } = useCategory();
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+  };
+
   return (
     <div className="main-left">
       <nav>
         <div className="main-nav-left">
           <ul>
             <li>
-              <a href="#">Latest Blogs</a>
+              <p>Categories</p>
             </li>
           </ul>
         </div>
@@ -16,16 +23,48 @@ const Categories = () => {
       <div className="categories">
         <ul>
           <li>
-            <a href="#">ALL</a>
+            <button
+              style={{
+                backgroundColor: "transparent",
+                border: "0px",
+              }}
+              onClick={() => handleCategoryClick("")}
+            >
+              ALL
+            </button>
           </li>
           <li>
-            <a href="#">Entertainment</a>
+            <button
+              style={{
+                backgroundColor: "transparent",
+                border: "0px",
+              }}
+              onClick={() => handleCategoryClick("Entertainment")}
+            >
+              Entertainment
+            </button>
           </li>
           <li>
-            <a href="#">News</a>
+            <button
+              style={{
+                backgroundColor: "transparent",
+                border: "0px",
+              }}
+              onClick={() => handleCategoryClick("News")}
+            >
+              News
+            </button>
           </li>
           <li>
-            <a href="#">Travel</a>
+            <button
+              style={{
+                backgroundColor: "transparent",
+                border: "0px",
+              }}
+              onClick={() => handleCategoryClick("Travel")}
+            >
+              Travel
+            </button>
           </li>
         </ul>
       </div>

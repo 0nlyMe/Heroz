@@ -1,38 +1,76 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import stars from "../../Assests/stars.jpg";
+import "./Post.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import "./Post.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useCategory } from "../../../../Contexts/CategoryContext";
 import { Link } from "react-router-dom";
 
 const Post = () => {
+  const { selectedCategory } = useCategory();
   const [posts, setPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState("newest");
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/post/posts"
-        );
-        setPosts(response.data.data.posts);
-      } catch (error) {
-        console.error("Error fetching the posts", error);
-      }
-    };
     fetchPosts();
-  }, []);
+  }, [selectedCategory, sortBy]);
 
-  const handleSearch = () => {
-    const filterdPost = posts.filter((post) =>
-      post.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setPosts(filterdPost);
+  const fetchPosts = async () => {
+    const apiUrl = selectedCategory
+      ? `http://localhost:5000/api/post/category/${selectedCategory}`
+      : "http://localhost:5000/api/post/posts";
+    try {
+      let response;
+
+      if (searchTerm.trim() === "") {
+        response = await axios.get(apiUrl, {
+          params: { sortBy },
+        });
+      } else {
+        response = await axios.get(
+          `http://localhost:5000/api/post/search/${searchTerm}`
+        );
+      }
+      if (response.data && response.data.data && response.data.data.posts) {
+        setPosts(response.data.data.posts);
+      } else {
+        console.error("Invalid response structure:", response);
+      }
+    } catch (error) {
+      console.error("Error fetching the posts", error);
+    }
   };
 
-  const handleInputChange = (e) => {
-    setSearchTerm(e.target.value);
+  const handleInputChange = async (e) => {
+    const apiUrl = selectedCategory
+      ? `http://localhost:5000/api/post/category/${selectedCategory}`
+      : "http://localhost:5000/api/post/posts";
+    const searchTerm = e.target.value;
+    setSearchTerm(searchTerm);
+    let response;
+
+    try {
+      if (searchTerm.trim() === "") {
+        response = await axios.get(apiUrl, {
+          params: { sortBy },
+        });
+      } else {
+        response = await axios.get(
+          `http://localhost:5000/api/post/search/${searchTerm}`,
+          {
+            params: { sortBy },
+          }
+        );
+      }
+      setPosts(response.data.data.posts);
+    } catch (error) {
+      console.error("Error fetching Search posts: ", error);
+    }
+  };
+
+  const handleSortBy = (sortOperation) => {
+    setSortBy(sortOperation);
   };
 
   return (
@@ -44,16 +82,60 @@ const Post = () => {
               <div className="sort-by">
                 <ul>
                   <li>
-                    <a href="#">Sort By:</a>
+                    <button
+                      style={{
+                        backgroundColor: "transparent",
+                        border: "0px",
+                        color: "white",
+                        fontSize: "1rem",
+                        margin: "1rem",
+                      }}
+                      href="#"
+                    >
+                      Sort By:
+                    </button>
                     <ul>
                       <li>
-                        <a href="#">popular</a>
+                        <button
+                          style={{
+                            backgroundColor: "transparent",
+                            border: "0px",
+                            color: "white",
+                            fontSize: "1rem",
+                            margin: "1rem",
+                          }}
+                          onClick={() => handleSortBy("newest")}
+                        >
+                          Newest
+                        </button>
                       </li>
                       <li>
-                        <a href="#">Newest</a>
+                        <button
+                          style={{
+                            backgroundColor: "transparent",
+                            border: "0px",
+                            color: "white",
+                            fontSize: "1rem",
+                            margin: "1rem",
+                          }}
+                          onClick={() => handleSortBy("popular")}
+                        >
+                          Popular
+                        </button>
                       </li>
                       <li>
-                        <a href="#">A-Z</a>
+                        <button
+                          style={{
+                            backgroundColor: "transparent",
+                            border: "0px",
+                            color: "white",
+                            fontSize: "1rem",
+                            margin: "1rem",
+                          }}
+                          onClick={() => handleSortBy("az")}
+                        >
+                          A-Z
+                        </button>
                       </li>
                     </ul>
                   </li>
@@ -67,7 +149,6 @@ const Post = () => {
                       placeholder="Search"
                       value={searchTerm}
                       onChange={handleInputChange}
-                      onInput={handleSearch}
                     />
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                   </li>
@@ -79,16 +160,23 @@ const Post = () => {
         <div>
           <div className="list-display">
             <div className="card-layout">
-              {posts.map((post) => (
-                <div className="card-container" key={post._id}>
-                  <Link key={post._id} to={`/post/${post._id}`}>
-                    <div className="card">
-                      <img src={post.image} alt={post.title} />
-                      <h4>{post.title}</h4>
-                    </div>
-                  </Link>
-                </div>
-              ))}
+              {Array.isArray(posts) && posts.length > 0 ? (
+                posts.map((post) => (
+                  <div className="card-container" key={post._id}>
+                    <Link key={post._id} to={`/post/${post._id}`}>
+                      <div className="card">
+                        <img src={post.image} alt={post.title} />
+                        <div className="post-details">
+                          <h4>{post.title}</h4>
+                          <h5 className="content">{post.content}</h5>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                ))
+              ) : (
+                <p>No post found.</p>
+              )}
             </div>
           </div>
         </div>

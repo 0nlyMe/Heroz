@@ -1,7 +1,7 @@
 .main-mid {
-  margin-top: 0;
   min-width: 60%;
   background: var(--bg);
+  height: 100%;
 }
 .main-nav-mid {
   display: flex;
@@ -15,61 +15,61 @@ li {
   display: flex;
 }
 .card-layout {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-right: 2rem;
-}
-.card-container {
-  max-width: 27rem;
-  min-width: 17rem;
-  max-height: 100%;
-  margin-left: 1.2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-row-gap: 0.5rem;
+  grid-column-gap: 2rem;
+  margin: 0 2rem;
+  overflow: hidden;
 }
 .card {
-  width: 100%;
+  position: relative;
   border-radius: 3px;
-  /* margin: 0.8rem; */
-  margin-top: 0rem;
   text-align: center;
   background-color: white;
   color: black;
   cursor: pointer;
-  overflow: hidden;
 }
 .card h4 {
-  margin: 0.3rem;
+  padding: 0.3rem;
 }
 .card img {
-  max-width: 19rem;
-  max-height: 15rem;
-  min-height: 15rem;
-  min-width: 19rem;
   object-fit: cover;
+  width: 100%;
+  height: 27vh;
+  transition: opacity 0.3s ease-in-out;
 }
+.card .content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.card:hover img {
+  opacity: 0.8;
+}
+.card:hover .content {
+  opacity: 1;
+}
+
 .search-btn {
   display: flex;
-  /* background-color: black; */
-  max-width: 10rem;
-  /* overflow: hidden; */
-  margin-left: -6.4rem;
+  margin-left: -5rem;
 }
-
 .search-btn input {
-  padding-left: 1.2rem;
-  padding-right: 1.5rem;
-  margin-right: 1.3rem; /* Adjust as needed for spacing between input and button */
   border: none;
-  border-radius: 10px;
   outline: none;
-  background-color: rgba(0, 0, 0, 0.161);
   color: white;
+  background-color: rgba(0, 0, 0, 0);
 }
 .search-btn input::placeholder {
-  color: rgba(255, 255, 255, 0.568);
+  color: rgba(255, 255, 255, 0.349);
 }
-
-.search-btn button {
+.search-btn li {
   background-color: rgba(0, 0, 0, 0.161);
   border: none;
   border-radius: 10px;

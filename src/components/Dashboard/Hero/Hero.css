@@ -1,6 +1,8 @@
 .corousel {
-  padding-top: 35rem;
-  height: 100vh;
+  margin-top: -6rem;
+  max-height: 70vh;
+  min-height: 70vh;
+  overflow: hidden;
 }
 .corousel img {
   height: 100%;

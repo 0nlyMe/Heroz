@@ -1,7 +1,13 @@
 :root {
-  --bg: linear-gradient(to bottom, grey, rgb(33, 29, 29) );
+  --bg: linear-gradient(to bottom, grey, rgb(33, 29, 29));
+}
+* {
+  box-sizing: border-box;
 }
 body {
   font-family: "Montserrat", sans-serif;
+}
+.container {
+  height: 100vh;
 }
 

@@ -1,43 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { storage, ref, uploadBytes, getDownloadURL } from "../../firebase";
 import removed from "../removed.png";
-import "../Registeration/style.css";
+import "../Styles/Form.css";
 
-const uploadImage = async (imageInfo) => {
-  const { title, content, image } = imageInfo;
-
-  try {
-    // Upload media to firebase
-    const storageRef = ref(storage);
-    const folder = `media/${Date.now()}_${image.name}`;
-    const mediaRef = ref(storageRef, folder);
-
-    // upload to firebase
-    await uploadBytes(mediaRef, image);
-    // downloadURL from the firebase
-    const mediaURL = await getDownloadURL(mediaRef);
-
-    // API call to MongoDB
-    const response = await axios.post("http://localhost:5000/api/post/add", {
-      title,
-      content,
-      mediaURL,
-    });
-  } catch (error) {
-    console.error("Error uploading image and adding post:", error);
-
-    if (error.response && error.response.data) {
-      console.error("Server error:", error.response.data);
-    }
-  }
-};
 const Newpost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
   const navigate = useNavigate();
+
+  const uploadImage = async (imageInfo) => {
+    const { title, content, image, selectedCategory } = imageInfo;
+
+    try {
+      // Upload media to firebase
+      const storageRef = ref(storage);
+      const folder = `media/${Date.now()}_${image.name}`;
+      const mediaRef = ref(storageRef, folder);
+
+      // upload to firebase
+      await uploadBytes(mediaRef, image);
+
+      // downloadURL from the firebase
+      const mediaURL = await getDownloadURL(mediaRef);
+
+      // API call to MongoDB
+      const response = await axios.post("http://localhost:5000/api/post/add", {
+        title,
+        content,
+        mediaURL,
+        category: selectedCategory,
+      });
+    } catch (error) {
+      console.error("Error uploading image and adding post:", error);
+
+      if (error.response && error.response.data) {
+        console.error("Server error:", error.response.data);
+      }
+    }
+  };
 
   const handleFileChange = (e) => {
     setImage(e.target.files[0]);
@@ -47,7 +52,11 @@ const Newpost = () => {
     e.preventDefault();
 
     try {
-      await uploadImage({ title, content, image });
+      if (!selectedCategory) {
+        console.error("please select a category");
+        return;
+      }
+      await uploadImage({ title, content, image, selectedCategory });
       navigate(`/home`);
     } catch (error) {
       console.error("Error in handle submit:", error);
@@ -64,7 +73,7 @@ const Newpost = () => {
                 <table>
                   <thead>
                     <tr>
-                      <th className="title">coin Blog</th>
+                      <th className="title">coinBlog</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -105,8 +114,18 @@ const Newpost = () => {
                     </tr>
                     <tr>
                       <td>
-                        <input required type="checkbox" /> I agree to terms and
-                        conditions
+                        <label htmlFor="categories">Category</label>
+                        <select
+                          id="categories"
+                          name="categories"
+                          value={selectedCategory}
+                          onChange={(e) => setSelectedCategory(e.target.value)}
+                        >
+                          <option value="All">All</option>
+                          <option value="News">News</option>
+                          <option value="Travel">Travel</option>
+                          <option value="Entertainment">Entertainment</option>
+                        </select>
                       </td>
                     </tr>
                     <tr>

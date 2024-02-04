@@ -22,9 +22,12 @@ nav li {
 .menu-bar h4 {
   font-size: 1rem;
   display: flex;
+  backdrop-filter: blur(2px);
+  padding: 0.6rem;
+  border-radius: 100px;
 }
 .menu-bar h4:hover {
-  scale: 1.2;
+  transform: scale(1.2);
   transition: 0.1s ease;
 }
 .nav-conatainer {

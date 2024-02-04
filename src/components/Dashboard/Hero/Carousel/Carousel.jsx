@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 import "./Carousel.css";
 
 const Carousel = ({ images }) => {
@@ -21,14 +22,20 @@ const Carousel = ({ images }) => {
   };
 
   return (
-    <div style={{ position: "relative" }}>
+    <div
+      style={{
+        position: "relative",
+        width: "100vw",
+        height: "100vh",
+      }}
+    >
       <AnimatePresence mode="wait">
         <motion.img
           key={currentIndex}
           src={images[currentIndex]}
           style={{
-            width: "100vw",
-            height: "100vh",
+            width: "100%",
+            height: "100%",
             objectFit: "cover",
           }}
           initial={{ opacity: 0 }}
