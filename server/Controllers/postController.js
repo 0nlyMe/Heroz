@@ -4,6 +4,7 @@ const Post = require("../Models/Post");
 exports.createPost = async (req, res) => {
   try {
     const { title, content, mediaURL, category } = req.body;
+    console.log(req.body);
 
     // new post with the data
     const newPost = new Post({

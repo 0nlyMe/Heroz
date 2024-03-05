@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 let isConnected = false;
 
@@ -16,7 +17,6 @@ const connectToDB = async () => {
       useUnifiedTopology: true,
     });
     isConnected = true;
-    console.log("MongoDB connected");
   } catch (error) {
     console.error(error);
   }

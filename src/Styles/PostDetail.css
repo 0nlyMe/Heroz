@@ -1,50 +1,66 @@
-.body {
+body {
   box-sizing: border-box;
 }
-.post-details-main-container {
+.form-post-details-main-container {
   background: var(--main-bg);
-  width: 110%;
-  min-height: 10px;
-  max-height: 100%;
   border-radius: 20px;
   padding: 1rem;
 }
-.post-details-container {
-  display: flex;
-  background: var(--main-bg);
-  color: black;
-  padding: 1rem;
-}
-.post-details-page {
-  border-radius: 10px;
+.form-box {
   display: grid;
-  place-content: center;
-  place-items: center;
-  width: 70%;
+  grid-template-columns: repeat(2, 1fr);
+  background: var(--main-bg);
+  padding: 1rem;
+  border-radius: 1rem;
+}
+.form-post-details-page {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
   margin: 1rem 2rem;
   padding: 2rem;
 }
-.post-details-img {
+.form-post-details-img {
   width: 27rem;
   height: 27rem;
 }
-.post-details-img img {
+.form-post-details-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 1rem;
 }
-.post-detail-title {
+.form-post-detail-title {
   font-size: 5rem;
 }
-.content {
+.form-content {
   font-size: 1.2rem;
   padding: 1.2rem;
   line-height: 1.5rem;
 }
-.content button {
+.form-content button {
   border: 0;
   padding: 0.4rem;
   margin: 1rem 0.4rem;
   background: linear-gradient(white grey);
+}
+.like_btn_icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.donate_btn button {
+  background-color: white;
+  color: purple;
+  width: 100%;
+  padding: 0.4rem;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.4rem;
+  transition: all 0.3s ease-in;
+}
+.donate_btn button:hover {
+  font-size: 0.9rem;
 }

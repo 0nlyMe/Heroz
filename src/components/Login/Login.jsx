@@ -87,11 +87,21 @@ const Login = () => {
                         <button>Login</button>
                       </td>
                     </tr>
+                    <tr>
+                      <td>
+                        <small className="new_user">
+                          New User.?
+                          <a href="/register">Register</a>
+                        </small>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </form>
             </div>
-            <img className="image-container" src={removed} />
+            <div className="img_container">
+              <img src={removed} />
+            </div>
           </div>
         </div>
       </div>

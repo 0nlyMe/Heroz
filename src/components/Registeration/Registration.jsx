@@ -95,13 +95,15 @@ const RegistrationForm = () => {
                   </tr>
                   <tr>
                     <td>
-                      <input type="checkbox" required /> I agree to terms and
-                      conditions
+                      <button>Register</button>
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <button>Register</button>
+                      <small className="new_user">
+                        already have an account...
+                        <a href="/login">Login</a>
+                      </small>
                     </td>
                   </tr>
                 </tbody>

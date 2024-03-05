@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import NavBar from "../Navbar/Navbar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import "../../Styles/PostDetail.css";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 const PostDetail = () => {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
+  const [like, setLike] = useState(false);
 
   useEffect(() => {
     if (postId) {
@@ -33,6 +33,7 @@ const PostDetail = () => {
         `http://localhost:5000/api/post/${postId}/like`
       );
       setPost(response.data.data.post);
+      setLike(!like);
     } catch (error) {
       console.error("error liking the post");
     }
@@ -45,29 +46,40 @@ const PostDetail = () => {
   return (
     <>
       <NavBar />
-      <div className="post-details-main-container">
-        <div className="box-container">
-          <div className="box">
-            <div className="post-details-container">
-              <div className="post-details-img">
+      <div className="form-post-details-main-container">
+        <div className="form-box-container">
+          <div className="form-box">
+            <div className="form-post-details-container">
+              <div className="form-post-details-img">
                 <img src={post.image} />
               </div>
             </div>
-            <div className="post-details-page">
-              <h1 className="post-detail-title">{post.title}</h1>
-              <div className="content">
+            <div className="form-post-details-page">
+              <h1 className="form-post-detail-title">{post.title}</h1>
+              <div className="form-content">
                 <p>{post.content}</p>
-                <button>{post.category}</button>
-                <button
-                  style={{
-                    backgroundColor: "transparent",
-                    border: "0px",
-                    fontSize: "1.2rem",
-                  }}
-                  onClick={handleLike}
-                >
-                  <FontAwesomeIcon style={{ color: "white" }} icon={faHeart} />
-                </button>
+
+                <div className="like_btn_icons">
+                  <button>{post.category}</button>
+                  <button
+                    className="like_btn"
+                    style={{
+                      backgroundColor: "transparent",
+                      border: "0px",
+                      fontSize: "1.2rem",
+                    }}
+                    onClick={handleLike}
+                  >
+                    {like ? (
+                      <AiOutlineHeart style={{ color: "white" }} />
+                    ) : (
+                      <AiFillHeart style={{ color: "white" }} />
+                    )}
+                  </button>
+                </div>
+              </div>
+              <div className="donate_btn">
+                <button>Donate</button>
               </div>
             </div>
           </div>
