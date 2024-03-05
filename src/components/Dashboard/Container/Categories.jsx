@@ -1,6 +1,5 @@
-import "./Categories.css";
-import { useCategory } from "../../../../Contexts/CategoryContext";
-import { Link } from "react-router-dom";
+import "../../../Styles/Categories.css";
+import { useCategory } from "../../../Contexts/CategoryContext";
 
 const Categories = () => {
   const { setSelectedCategory } = useCategory();

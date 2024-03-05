@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../Styles/Form.css";
-import removed from "../removed.png";
+import "../../Styles/Form.css";
+import removed from "../../Assests/removed.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");

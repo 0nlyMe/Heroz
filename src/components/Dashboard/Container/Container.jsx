@@ -1,7 +1,7 @@
-import "./Container.css";
-import Categories from "./Categories/Categories";
-import Post from "./Posts/Post";
-import Users from "./Users/Users";
+import "../../../Styles/Container.css";
+import Categories from "./Categories";
+import Post from "./Post";
+import Users from "./Users";
 
 const Container = () => {
   return (

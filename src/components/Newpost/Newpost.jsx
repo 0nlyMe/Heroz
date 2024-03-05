@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { storage, ref, uploadBytes, getDownloadURL } from "../../firebase";
-import removed from "../removed.png";
-import "../Styles/Form.css";
+import removed from "../../Assests/removed.png";
+import "../../Styles/Form.css";
 
 const Newpost = () => {
   const [title, setTitle] = useState("");

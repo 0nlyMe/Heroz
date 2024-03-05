@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import NavBar from "../Navbar/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import "../Styles/PostDetail.css";
+import "../../Styles/PostDetail.css";
 
 const PostDetail = () => {
   const { postId } = useParams();

@@ -1,9 +1,9 @@
-import "./Post.css";
+import "../../../Styles/Post.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useCategory } from "../../../../Contexts/CategoryContext";
+import { useCategory } from "../../../Contexts/CategoryContext";
 import { Link } from "react-router-dom";
 
 const Post = () => {

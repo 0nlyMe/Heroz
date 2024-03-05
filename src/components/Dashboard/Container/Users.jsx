@@ -1,8 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import removed from "../../Assests/removed.png";
-import "./Users.css";
+import removed from "../../../Assests/removed.png";
+import "../../../Styles/Users.css";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
