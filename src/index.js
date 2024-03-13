@@ -4,13 +4,16 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { CategoryProvider } from "./Contexts/CategoryContext";
+import { CoinBlogProvider } from "./Contexts/coinBlogContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <CategoryProvider>
-      <App />
-    </CategoryProvider>
+    <CoinBlogProvider>
+      <CategoryProvider>
+        <App />
+      </CategoryProvider>
+    </CoinBlogProvider>
   </React.StrictMode>
 );
 reportWebVitals();

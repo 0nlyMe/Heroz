@@ -22,6 +22,7 @@ const PostDetail = () => {
         `http://localhost:5000/api/post/${postId}`
       );
       setPost(response.data.data.post);
+      console.log(response.data);
     } catch (error) {
       console.error("Error fetching the post Details: ", error);
     }
@@ -58,6 +59,11 @@ const PostDetail = () => {
               <h1 className="form-post-detail-title">{post.title}</h1>
               <div className="form-content">
                 <p>{post.content}</p>
+                <div className="author_details">
+                  <p>
+                    Author Name: <small>{post.author.name}</small>
+                  </p>
+                </div>
 
                 <div className="like_btn_icons">
                   <button>{post.category}</button>

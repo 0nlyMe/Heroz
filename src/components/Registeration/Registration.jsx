@@ -29,8 +29,12 @@ const RegistrationForm = () => {
           password,
         }
       );
-      console.log("Registration successful:", response);
-      navigate(`/home`);
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+        navigate(`/home`);
+      } else {
+        console.log("Authentication failed...");
+      }
     } catch (error) {
       console.error("Error registering user:", error.response.data);
     }
@@ -54,6 +58,7 @@ const RegistrationForm = () => {
                       <input
                         type="text"
                         placeholder="Username"
+                        name="name"
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}

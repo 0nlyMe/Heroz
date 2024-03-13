@@ -1,10 +1,18 @@
 const Post = require("../Models/Post");
+const jwt = require("jsonwebtoken");
+const { decodeToken } = require("../utils/jwtUtils");
+require("dotenv").config();
 
 // Create A new Post
 exports.createPost = async (req, res) => {
   try {
     const { title, content, mediaURL, category } = req.body;
-    console.log(req.body);
+
+    // Retrieve JWT Token from the header
+    const token = req.headers.authorization.split(" ")[1];
+
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const { id, name } = decodedToken;
 
     // new post with the data
     const newPost = new Post({
@@ -12,7 +20,10 @@ exports.createPost = async (req, res) => {
       content,
       image: mediaURL,
       category,
+      author: { id, name },
+      authorAddress: req.body.authorAddress,
     });
+    console.log(newPost);
 
     const savedPost = await newPost.save();
 

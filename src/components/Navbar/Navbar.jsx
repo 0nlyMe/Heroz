@@ -1,8 +1,43 @@
-import React from "react";
-import "../../Styles/Navbar.css";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { decodeToken } from "../../utils/jwtUtils";
+
+// Internal Imports
+import "../../Styles/Navbar.css";
+
+// Smart contract Imports
+import { CoinBlogContext } from "../../Contexts/coinBlogContext";
 
 const NavBar = () => {
+  const { walletAddress, connectWallet } = useContext(CoinBlogContext);
+  const [user, setuser] = useState(null);
+
+  const handleConnectWallet = async () => {
+    try {
+      await connectWallet();
+    } catch (error) {
+      console.error("Error connecting to the wallet", error);
+    }
+  };
+
+  useEffect(() => {
+    // if token is present in localStorage
+    const token = localStorage.getItem("token");
+    if (token) {
+      // decode token and set User state
+      const decodedToken = decodeToken(token);
+      setuser(decodedToken.name);
+    } else {
+      // if not present return null
+      setuser(null);
+    }
+  }, []);
+
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    setuser(null);
+  };
+
   return (
     <>
       <header>
@@ -28,12 +63,33 @@ const NavBar = () => {
               </Link>
             </div>
             <div className="acc-details">
-              <Link to="/login">
-                <button className="login-btn">LOG IN</button>
-              </Link>
-              <Link to="/register">
-                <button className="signup-btn ">Get Started</button>
-              </Link>
+              {user ? (
+                <>
+                  <span className="login-btn">{user}</span>
+                  <button
+                    onClick={handleLogOut}
+                    className="logout-btn signup-btn"
+                  >
+                    Logout
+                  </button>
+                  {walletAddress ? (
+                    <p>Connected with wallet address: {walletAddress}</p>
+                  ) : (
+                    <button onClick={handleConnectWallet} className="login-btn">
+                      connectWallet
+                    </button>
+                  )}
+                </>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <button className="login-btn">Login</button>
+                  </Link>
+                  <Link to="/register">
+                    <button className="signup-btn">Get Started</button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </nav>

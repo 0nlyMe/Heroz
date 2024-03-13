@@ -23,15 +23,14 @@ const Login = () => {
         }
       );
 
-      console.log("Response:", response);
-
-      if (response.status === 200) {
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
         navigate(`/home`);
       } else {
-        console.log("error");
+        console.log("Authentication failed");
       }
     } catch (error) {
-      console.error("Error registering user:", error.response.data);
+      console.error("Error Loging in the user:", error.response.data);
     }
   };
 
@@ -60,6 +59,7 @@ const Login = () => {
                           required
                           placeholder="Email"
                           type="email"
+                          name="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                         />
@@ -71,6 +71,7 @@ const Login = () => {
                           required
                           placeholder="password"
                           type="password"
+                          name="password"
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                         />

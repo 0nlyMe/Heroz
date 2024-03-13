@@ -1,11 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
+// Internal Imports
 import { storage, ref, uploadBytes, getDownloadURL } from "../../firebase";
 import removed from "../../Assests/removed.png";
 import "../../Styles/Form.css";
 
+// Smart contract imports
+import { CoinBlogContext } from "../../Contexts/coinBlogContext";
+
 const Newpost = () => {
+  const { walletAddress } = useContext(CoinBlogContext);
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
@@ -13,7 +20,7 @@ const Newpost = () => {
 
   const navigate = useNavigate();
 
-  const uploadImage = async (imageInfo) => {
+  const uploadImage = async (imageInfo, token) => {
     const { title, content, image, selectedCategory } = imageInfo;
 
     try {
@@ -29,12 +36,21 @@ const Newpost = () => {
       const mediaURL = await getDownloadURL(mediaRef);
 
       // API call to MongoDB
-      const response = await axios.post("http://localhost:5000/api/post/add", {
-        title,
-        content,
-        mediaURL,
-        category: selectedCategory,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/post/add",
+        {
+          title,
+          content,
+          mediaURL,
+          category: selectedCategory,
+          authorAddress: walletAddress,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     } catch (error) {
       console.error("Error uploading image and adding post:", error);
 
@@ -56,7 +72,9 @@ const Newpost = () => {
         console.error("please select a category");
         return;
       }
-      await uploadImage({ title, content, image, selectedCategory });
+      const token = localStorage.getItem("token");
+
+      await uploadImage({ title, content, image, selectedCategory }, token);
       navigate(`/home`);
     } catch (error) {
       console.error("Error in handle submit:", error);
