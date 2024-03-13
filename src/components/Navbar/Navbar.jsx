@@ -6,7 +6,7 @@ import { decodeToken } from "../../utils/jwtUtils";
 import "../../Styles/Navbar.css";
 
 // Smart contract Imports
-import { CoinBlogContext } from "../../Contexts/coinBlogContext";
+import { CoinBlogContext } from "../../Contexts/SmartContractContext/coinBlogContext";
 
 const NavBar = () => {
   const { walletAddress, connectWallet } = useContext(CoinBlogContext);

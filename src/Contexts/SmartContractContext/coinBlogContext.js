@@ -2,6 +2,30 @@ import { useState, useEffect, createContext } from "react";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 
+// import contract and abi
+import { CoinBlogAddress, CoinBlogABI } from "./constance";
+
+// fetch coinblog contract function
+const fetchCoinBlogContract = (signerOrProvider) => {
+  new ethers.Contract(CoinBlogAddress, CoinBlogABI, signerOrProvider);
+
+  const connectWithCoinBlogContract = async () => {
+    try {
+      const web3Modal = new Web3Modal();
+      const connection = web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
+      const contract = fetchCoinBlogContract(signer);
+      return contract;
+    } catch (error) {
+      console.error(
+        "Something wrong while connecting to the smart contract",
+        error
+      );
+    }
+  };
+};
+
 const CoinBlogContext = createContext();
 
 const CoinBlogProvider = ({ children }) => {

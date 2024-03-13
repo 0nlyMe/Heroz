@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { CategoryProvider } from "./Contexts/CategoryContext";
-import { CoinBlogProvider } from "./Contexts/coinBlogContext";
+import { CoinBlogProvider } from "./Contexts/SmartContractContext/coinBlogContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

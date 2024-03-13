@@ -6,9 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { storage, ref, uploadBytes, getDownloadURL } from "../../firebase";
 import removed from "../../Assests/removed.png";
 import "../../Styles/Form.css";
-
+ 
 // Smart contract imports
-import { CoinBlogContext } from "../../Contexts/coinBlogContext";
+import { CoinBlogContext } from "../../Contexts/SmartContractContext/coinBlogContext";
 
 const Newpost = () => {
   const { walletAddress } = useContext(CoinBlogContext);

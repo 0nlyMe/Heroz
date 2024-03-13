@@ -54,7 +54,8 @@
     ]
   },
   "devDependencies": {
-    "hardhat": "^2.21.0",
+    "hardhat": "^2.20.0",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
     "path-browserify": "^1.0.1"
   }
 }
