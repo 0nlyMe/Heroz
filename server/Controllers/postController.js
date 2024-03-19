@@ -23,7 +23,7 @@ exports.createPost = async (req, res) => {
       author: { id, name },
       authorAddress: req.body.authorAddress,
     });
-    console.log(newPost);
+    // console.log(newPost);
 
     const savedPost = await newPost.save();
 

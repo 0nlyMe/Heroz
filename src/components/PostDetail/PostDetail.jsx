@@ -1,14 +1,32 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { ethers } from "ethers";
+
+// internal Imports
 import NavBar from "../Navbar/Navbar";
 import "../../Styles/PostDetail.css";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+
+// Smart contract imports
+import { CoinBlogContext } from "../../Contexts/SmartContractContext/coinBlogContext";
 
 const PostDetail = () => {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [like, setLike] = useState(false);
+  const [amount, setAmount] = useState("");
+
+  const { donateToAuthor } = useContext(CoinBlogContext);
+
+  const handleDonate = async () => {
+    try {
+      const ethersAmount = ethers.utils.parseEther(amount);
+      await donateToAuthor(post.authorAddress, ethersAmount);
+    } catch (error) {
+      console.error("error donating", error);
+    }
+  };
 
   useEffect(() => {
     if (postId) {
@@ -22,7 +40,7 @@ const PostDetail = () => {
         `http://localhost:5000/api/post/${postId}`
       );
       setPost(response.data.data.post);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error("Error fetching the post Details: ", error);
     }
@@ -67,6 +85,7 @@ const PostDetail = () => {
 
                 <div className="like_btn_icons">
                   <button>{post.category}</button>
+                  <button>{post.authorAddress}</button>
                   <button
                     className="like_btn"
                     style={{
@@ -85,7 +104,17 @@ const PostDetail = () => {
                 </div>
               </div>
               <div className="donate_btn">
-                <button>Donate</button>
+                <div className="Amount_input">
+                  <input
+                    type="number"
+                    name="Eth"
+                    id=""
+                    placeholder="ETH"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                  />
+                </div>
+                <button onClick={handleDonate}>Donate ETH</button>
               </div>
             </div>
           </div>

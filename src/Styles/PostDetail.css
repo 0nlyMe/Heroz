@@ -5,6 +5,8 @@ body {
   background: var(--main-bg);
   border-radius: 20px;
   padding: 1rem;
+  width: 90%;
+  margin: 10rem auto;
 }
 .form-box {
   display: grid;
@@ -18,8 +20,9 @@ body {
   align-items: center;
   justify-content: center;
   line-height: 0;
-  margin: 1rem 2rem;
   padding: 2rem;
+  width: 80%;
+  margin: 0 auto;
 }
 .form-post-details-img {
   width: 27rem;
@@ -50,6 +53,15 @@ body {
   justify-content: center;
   align-items: center;
 }
+.like_btn_icons button {
+  background-color: white;
+  color: purple;
+  padding: 0.4rem;
+  outline: none;
+  border: none;
+  border-radius: 0.4rem;
+  transition: all 0.3s ease-in;
+}
 .donate_btn button {
   background-color: white;
   color: purple;
@@ -60,6 +72,24 @@ body {
   cursor: pointer;
   border-radius: 0.4rem;
   transition: all 0.3s ease-in;
+}
+.donate_btn {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  transition: all 0.3s ease-in;
+  margin-right: 4rem;
+  margin-left: 2rem;
+}
+.donate_btn input {
+  background-color: white;
+  color: purple;
+  width: 100%;
+  padding: 0.4rem;
+  outline: none;
+  border: none;
+  border-radius: 0.4rem;
 }
 .donate_btn button:hover {
   font-size: 0.9rem;

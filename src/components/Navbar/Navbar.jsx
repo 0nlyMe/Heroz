@@ -11,7 +11,11 @@ import { CoinBlogContext } from "../../Contexts/SmartContractContext/coinBlogCon
 const NavBar = () => {
   const { walletAddress, connectWallet } = useContext(CoinBlogContext);
   const [user, setuser] = useState(null);
+  const [showAddress, setShowAddress] = useState(false);
 
+  const toggleAddress = () => {
+    setShowAddress(!showAddress);
+  };
   const handleConnectWallet = async () => {
     try {
       await connectWallet();
@@ -66,18 +70,19 @@ const NavBar = () => {
               {user ? (
                 <>
                   <span className="login-btn">{user}</span>
+                  <span className="login-btn" onClick={toggleAddress}>
+                    {showAddress ? "HideAddress" : "showAddress"}
+                  </span>
                   <button
                     onClick={handleLogOut}
                     className="logout-btn signup-btn"
                   >
                     Logout
                   </button>
-                  {walletAddress ? (
-                    <p>Connected with wallet address: {walletAddress}</p>
-                  ) : (
-                    <button onClick={handleConnectWallet} className="login-btn">
-                      connectWallet
-                    </button>
+                  {showAddress && walletAddress && (
+                    <p>
+                      Address: <small>{walletAddress}</small>
+                    </p>
                   )}
                 </>
               ) : (
@@ -89,6 +94,14 @@ const NavBar = () => {
                     <button className="signup-btn">Get Started</button>
                   </Link>
                 </>
+              )}
+              {!walletAddress && (
+                <button
+                  onClick={handleConnectWallet}
+                  className="login-btn address"
+                >
+                  Connect Wallet
+                </button>
               )}
             </div>
           </div>

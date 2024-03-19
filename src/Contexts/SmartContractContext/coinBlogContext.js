@@ -7,47 +7,43 @@ import { CoinBlogAddress, CoinBlogABI } from "./constance";
 
 // fetch coinblog contract function
 const fetchCoinBlogContract = (signerOrProvider) => {
-  new ethers.Contract(CoinBlogAddress, CoinBlogABI, signerOrProvider);
-
-  const connectWithCoinBlogContract = async () => {
-    try {
-      const web3Modal = new Web3Modal();
-      const connection = web3Modal.connect();
-      const provider = new ethers.providers.Web3Provider(connection);
-      const signer = provider.getSigner();
-      const contract = fetchCoinBlogContract(signer);
-      return contract;
-    } catch (error) {
-      console.error(
-        "Something wrong while connecting to the smart contract",
-        error
-      );
-    }
-  };
+  return new ethers.Contract(CoinBlogAddress, CoinBlogABI, signerOrProvider);
+};
+const connectWithCoinBlogContract = async () => {
+  try {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+    const contract = fetchCoinBlogContract(signer);
+    console.log("Contract fetched successfully..", contract);
+    return contract;
+  } catch (error) {
+    console.error(
+      "Something wrong while connecting to the smart contract",
+      error
+    );
+  }
 };
 
 const CoinBlogContext = createContext();
 
 const CoinBlogProvider = ({ children }) => {
   const [walletAddress, setWalletAddress] = useState("");
-  const [provider, setProvider] = useState(null);
+  const [CoinBlogContract, setCoinBlogContract] = useState(null);
 
-  useEffect(() => {
-    checkIfWalletIsConnected();
-  }, []);
-
+  // ------- check if wallet is connected ------
   const checkIfWalletIsConnected = async () => {
     try {
       if (!window.ethereum) return console.log("Please install Metamask");
-      const web3Modal = new Web3Modal();
-      const connection = await web3Modal.connect();
-      const ethProvider = new ethers.providers.Web3Provider(connection);
 
-      setProvider(ethProvider);
-
-      const accounts = await ethProvider.listAccounts();
-      if (accounts.length > 0) {
+      const accounts = await window.ethereum.request({
+        method: "eth_accounts",
+      });
+      if (accounts.length) {
         setWalletAddress(accounts[0]);
+      } else {
+        console.log("No accounts found");
       }
     } catch (error) {
       console.error(
@@ -60,23 +56,56 @@ const CoinBlogProvider = ({ children }) => {
   const connectWallet = async () => {
     try {
       if (!window.ethereum) return console.log("Please install Metamask");
-      const web3Modal = new Web3Modal();
-      const connection = await web3Modal.connect();
-      const ethProvider = new ethers.providers.Web3Provider(connection);
-
-      setProvider(ethProvider);
-
-      const accounts = await ethProvider.listAccounts();
-      if (accounts.length > 0) {
-        setWalletAddress(accounts[0]);
-      }
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      setWalletAddress(accounts[0]);
     } catch (error) {
-      console.error("Something wrong while connecting to the wallet", error);
+      console.error("Error while connecting to the wallet", error);
+    }
+  };
+
+  useEffect(() => {
+    checkIfWalletIsConnected();
+    connectWithCoinBlogContract().then((contract) => {
+      // console.log("coinBlog Contract Connected...", contract);
+      setCoinBlogContract(contract);
+    });
+  }, []);
+
+  // ------- Donate Fuction -------
+  const donateToAuthor = async (authorAddress, donationAmount) => {
+    try {
+      if (!CoinBlogContract) {
+        console.error("coing blog contract is not initialized");
+        return;
+      }
+
+      console.log("Donating to author");
+
+      // call the donate function of the contract
+      const donation = await CoinBlogContract.donate(
+        authorAddress,
+        donationAmount,
+        {
+          value: donationAmount,
+          gasLimit: 300000,
+        }
+      );
+
+      // Wait for the transaction to be mined
+      const transaction = await donation.wait();
+
+      console.log("Donation successfull", transaction);
+    } catch (error) {
+      console.error("Error while donating", error);
     }
   };
 
   return (
-    <CoinBlogContext.Provider value={{ walletAddress, connectWallet }}>
+    <CoinBlogContext.Provider
+      value={{ walletAddress, connectWallet, donateToAuthor }}
+    >
       {children}
     </CoinBlogContext.Provider>
   );
